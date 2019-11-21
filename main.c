@@ -12,17 +12,16 @@ void printMenu(){
 }
 
 void putInt(int *x){ // make sure that user insert an int
-  while ((getchar()) != '\n'); // clean the buffer
   while(!scanf(" %d", x)){
     printf("Pleas enter an integer number\n");
-    while(getchar() != '\n');
+    while(getchar() != '\n'); // clean the buffer
   }
 }
 void putDouble(double *x){ // make sure that user insert a double
-  while ((getchar()) != '\n');
-  while(!scanf(" %lf", x))
-    while(getchar() != '\n')
+  while(!scanf(" %lf", x)){
       printf("Pleas enter a real number\n");
+      while(getchar() != '\n'); // clean the buffer
+  }
 }
 
 int main() {
@@ -121,9 +120,9 @@ int main() {
       }
       default:{
         printf("'%s' is wrong input. try again (H for help).\n", &act);
+        while ((getchar()) != '\n'); // clean the buffer
       }
     }
-    while ((getchar()) != '\n'); // clean the buffer
     printf("\n");
   }
 }
