@@ -1,3 +1,6 @@
+#ifndef MYBANK_H
+#define MYBANK_H
+
 #include <stdbool.h>
 double round2Digits(double);
 int findPlace();
@@ -11,3 +14,5 @@ bool closeAcc(int);
 void interest(double);
 void printAll();
 void closeAll();
+
+#endif

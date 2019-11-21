@@ -6,7 +6,7 @@ main: main.o myBank.o
 main.o: main.c myBank.h
 	gcc -Wall -c main.c
 
-myBank.o: myBank.c myBank.h
+myBank.o: myBank.c
 	gcc -Wall -c myBank.c
 
 .PHONY: all clean

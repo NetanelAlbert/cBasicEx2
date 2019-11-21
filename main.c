@@ -5,25 +5,38 @@
 #include "myBank.h"
 
 #include <stdio.h>
-#include <stdbool.h>
 
 void printMenu(){
-  printf("\t-help menu- \nO: Open new account \nB: Print balance \nD: Deposite  \nW: Withrawal \nC: Close account \n");
-  printf("I: Add interest for all accounts \nP: Print all open accounts and balance \nE: Close all accounts and exit \nH: Help\n\n");
+  printf("\t-Help menu- \n\nO: Open new account \nB: Print balance \nD: Deposite  \nW: Withrawal \nC: Close account \n");
+  printf("I: Add interest to all accounts \nP: Print all open accounts and balance \nE: Close all accounts and exit \nH: Help\n\n");
+}
+
+void putInt(int *x){ // make sure that user insert an int
+  while ((getchar()) != '\n'); // clean the buffer
+  while(!scanf(" %d", x)){
+    printf("Pleas enter an integer number\n");
+    while(getchar() != '\n');
+  }
+}
+void putDouble(double *x){ // make sure that user insert a double
+  while ((getchar()) != '\n');
+  while(!scanf(" %lf", x))
+    while(getchar() != '\n')
+      printf("Pleas enter a real number\n");
 }
 
 int main() {
   printf("Welcome to my online bank \nfor help in any time press H\n\n");
   bool exit = false;
   while (!exit) {
-    char act;
     printf("Transaction type?\n");
+    char act;
     scanf(" %c", &act);
     switch (act) {
       case 'O':{
         printf("Initial deposite?\n");
         double amount;
-        scanf("%lf", &amount);
+        putDouble(&amount);
         amount = round2Digits(amount);
         int ans = openAcc(amount);
         if(ans != WRONG_INDX)
@@ -35,7 +48,7 @@ int main() {
       case 'B':{
         printf("Account number?\n");
         int account;
-        scanf("%d", &account);
+        putInt(&account);
         double ans = getBalance(account);
         if(ans != WRONG_INDX)
           printf("The balance for %d account is %g\n", account, ans);
@@ -46,10 +59,10 @@ int main() {
       case 'D':{
         int account;
         printf("Account number?\n");
-        scanf("%d", &account);
+        putInt(&account);
         double amount;
         printf("Amount?\n");
-        scanf("%lf", &amount);
+        putDouble(&amount);
         amount = round2Digits(amount);
         double ans = deposite(account, amount);
         if(ans != WRONG_INDX)
@@ -61,10 +74,10 @@ int main() {
       case 'W':{
         int account;
         printf("Account number?\n");
-        scanf("%d", &account);
+        putInt(&account);
         double amount;
         printf("Amount?\n");
-        scanf("%lf", &amount);
+        putDouble(&amount);
         amount = round2Digits(amount);
         double ans = withrawal(account, amount);
         if(ans != WRONG_INDX)
@@ -76,7 +89,7 @@ int main() {
       case 'C':{
         int account;
         printf("Account number?\n");
-        scanf("%d", &account);
+        putInt(&account);
         bool ans = closeAcc(account);
         if(ans)
           printf("Account %d is close succsesfuly\n", account);
@@ -87,7 +100,7 @@ int main() {
       case 'I':{
         double inter;
         printf("Interest rate?\n");
-        scanf("%lf", &inter);
+        putDouble(&inter);
         interest(inter);
         printf("Interest was add with rate of %g\n", inter);
         break;
@@ -107,11 +120,10 @@ int main() {
         break;
       }
       default:{
-        char nothing[256];
-        scanf(" %s", nothing);
-        printf("Wrong input. try again. (H for help)\n");
+        printf("'%s' is wrong input. try again (H for help).\n", &act);
       }
     }
+    while ((getchar()) != '\n'); // clean the buffer
     printf("\n");
   }
 }
