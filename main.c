@@ -119,7 +119,7 @@ int main() {
         break;
       }
       default:{
-        printf("'%s' is wrong input. try again (H for help).\n", &act);
+        printf("'%c' is wrong input. try again (H for help).\n", act);
       }
     }
     printf("\n");
